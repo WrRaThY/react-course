@@ -24,22 +24,42 @@ class App extends Component {
     };
 
     render () {
+        return (
+            <div className="App">
+                <button onClick={this.addPersonHandler} style={this.dynamicStyle()}>Add a person</button>
+                <button onClick={this.togglePersonsHandler} style={this.dynamicStyle()}>Toggle persons</button>
+                <p className={this.dynamicClasses()}>dynamic classes example</p>
+                {this.renderPersons()}
+            </div>
+        );
+    }
+
+    dynamicStyle () {
         const style = {
             color: 'white',
-            backgroundColor: 'blue',
+            backgroundColor: 'green',
             border: '1px solid blue',
             padding: '8px',
             cursor: 'pointer',
             margin: '5px'
         };
 
-        return (
-            <div className="App">
-                <button onClick={this.addPersonHandler} style={style}>Add a person</button>
-                <button onClick={this.togglePersonsHandler} style={style}>Toggle persons</button>
-                {this.renderPersons()}
-            </div>
-        );
+        if (this.state.showPersons){
+            style.backgroundColor = 'red';
+        }
+
+        return style;
+    }
+
+    dynamicClasses () {
+        const classes = [];
+        if (this.state.persons.length <= 2) {
+            classes.push('red')
+        }
+        if (this.state.persons.length <= 1) {
+            classes.push('bold')
+        }
+        return classes.join(' ');
     }
 
     renderPersons () {

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Radium, { StyleRoot } from 'radium';
 
 import Person from "./components/Person/Person";
 
@@ -26,14 +25,12 @@ class App extends Component {
 
     render () {
         return (
-            <StyleRoot>
                 <div className="App">
                     <button key={'addButton'} onClick={this.addPersonHandler} style={this.dynamicStyle()}>Add a person</button>
                     <button key={'toggleButton'} onClick={this.togglePersonsHandler} style={this.dynamicStyle()}>Toggle persons</button>
                     <p className={this.dynamicClasses()}>dynamic classes example</p>
                     {this.renderPersons()}
                 </div>
-            </StyleRoot>
         );
     }
 
@@ -124,4 +121,4 @@ class App extends Component {
     };
 }
 
-export default Radium(App);
+export default App;

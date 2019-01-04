@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Person from "./components/Person/Person";
 
-import './App.css';
+import styles from './App.module.scss';
 
 class App extends Component {
     state = {
@@ -25,41 +25,24 @@ class App extends Component {
 
     render () {
         return (
-                <div className="App">
-                    <button key={'addButton'} onClick={this.addPersonHandler} style={this.dynamicStyle()}>Add a person</button>
-                    <button key={'toggleButton'} onClick={this.togglePersonsHandler} style={this.dynamicStyle()}>Toggle persons</button>
-                    <p className={this.dynamicClasses()}>dynamic classes example</p>
+                <div className={styles.App}>
+                    <button onClick={this.addPersonHandler}>Add a person</button>
+                    <button onClick={this.togglePersonsHandler} className={this.dynamicClassesButton()}>Toggle persons</button>
+                    <p className={this.dynamicClassesExample()}>dynamic classes example</p>
                     {this.renderPersons()}
                 </div>
         );
     }
 
-    dynamicStyle () {
-        const style = {
-            color: 'white',
-            backgroundColor: 'green',
-            border: '1px solid blue',
-            padding: '8px',
-            cursor: 'pointer',
-            margin: '5px',
-            ':hover': {
-                backgroundColor: 'lightgreen',
-                color: 'black'
-            }
-        };
-
-        if (this.state.showPersons) {
-            style.backgroundColor = 'red';
-            style[':hover'] = {
-                backgroundColor: 'salmon',
-                color: 'black'
-            }
+    dynamicClassesButton() {
+        if (this.state.showPersons){
+            return styles.red;
         }
 
-        return style;
+        return styles.green;
     }
 
-    dynamicClasses () {
+    dynamicClassesExample () {
         const classes = [];
         if (this.state.persons.length <= 2) {
             classes.push('red')

@@ -1,0 +1,36 @@
+@import 'styles/variables';
+
+.App {
+  text-align: center;
+
+  button {
+    border: 1px solid blue;
+    padding: 8px;
+    cursor: pointer;
+    margin: 5px;
+    background-color: blue;
+    color: $primary-button-text-color
+  }
+
+  button:hover {
+    color: $primary-button-hover-text-color;
+    cursor: pointer;
+  }
+
+  button.green {
+    background-color: green;
+  }
+
+  button.green:hover {
+    background-color: lightgreen;
+  }
+
+  button.red {
+    background-color: red;
+  }
+
+  button.red:hover {
+    background-color: salmon;
+  }
+}
+

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Person from "./components/Person/Person";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary"
 
 import styles from './App.module.scss';
 
@@ -25,17 +26,17 @@ class App extends Component {
 
     render () {
         return (
-                <div className={styles.App}>
-                    <button onClick={this.addPersonHandler}>Add a person</button>
-                    <button onClick={this.togglePersonsHandler} className={this.dynamicClassesButton()}>Toggle persons</button>
-                    <p className={this.dynamicClassesExample()}>dynamic classes example</p>
-                    {this.renderPersons()}
-                </div>
+            <div className={styles.App}>
+                <button onClick={this.addPersonHandler}>Add a person</button>
+                <button onClick={this.togglePersonsHandler} className={this.dynamicClassesButton()}>Toggle persons</button>
+                <p className={this.dynamicClassesExample()}>dynamic classes example</p>
+                {this.renderPersons()}
+            </div>
         );
     }
 
-    dynamicClassesButton() {
-        if (this.state.showPersons){
+    dynamicClassesButton () {
+        if (this.state.showPersons) {
             return styles.red;
         }
 
@@ -57,12 +58,13 @@ class App extends Component {
         if (this.state.showPersons) {
             return this.state.persons.map((el, index) => {
                 return (
-                    <Person
-                        key={el.id}
-                        name={el.name}
-                        deletePersonHandler={this.deletePersonHandler.bind(this, index)}
-                        nameChangeHandler={this.nameChangeHandler.bind(this, el.id)}
-                    />
+                    <ErrorBoundary key={el.id}>
+                        <Person
+                            name={el.name}
+                            deletePersonHandler={this.deletePersonHandler.bind(this, index)}
+                            nameChangeHandler={this.nameChangeHandler.bind(this, el.id)}
+                        />
+                    </ErrorBoundary>
                 );
             })
         }

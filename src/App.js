@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Radium, { StyleRoot } from 'radium';
 
 import Person from "./components/Person/Person";
 
@@ -25,12 +26,14 @@ class App extends Component {
 
     render () {
         return (
-            <div className="App">
-                <button onClick={this.addPersonHandler} style={this.dynamicStyle()}>Add a person</button>
-                <button onClick={this.togglePersonsHandler} style={this.dynamicStyle()}>Toggle persons</button>
-                <p className={this.dynamicClasses()}>dynamic classes example</p>
-                {this.renderPersons()}
-            </div>
+            <StyleRoot>
+                <div className="App">
+                    <button key={'addButton'} onClick={this.addPersonHandler} style={this.dynamicStyle()}>Add a person</button>
+                    <button key={'toggleButton'} onClick={this.togglePersonsHandler} style={this.dynamicStyle()}>Toggle persons</button>
+                    <p className={this.dynamicClasses()}>dynamic classes example</p>
+                    {this.renderPersons()}
+                </div>
+            </StyleRoot>
         );
     }
 
@@ -41,11 +44,19 @@ class App extends Component {
             border: '1px solid blue',
             padding: '8px',
             cursor: 'pointer',
-            margin: '5px'
+            margin: '5px',
+            ':hover': {
+                backgroundColor: 'lightgreen',
+                color: 'black'
+            }
         };
 
-        if (this.state.showPersons){
+        if (this.state.showPersons) {
             style.backgroundColor = 'red';
+            style[':hover'] = {
+                backgroundColor: 'salmon',
+                color: 'black'
+            }
         }
 
         return style;
@@ -94,13 +105,13 @@ class App extends Component {
 
     nameChangeHandler = (id, event) => {
         const personIndex = this.state.persons.findIndex(p => p.id === id);
-        const person = {...this.state.persons[personIndex]};
+        const person = { ...this.state.persons[personIndex] };
         person.name = event.target.value;
 
         const persons = [...this.state.persons];
         persons[personIndex] = person;
 
-        this.setState({persons: persons});
+        this.setState({ persons: persons });
     };
 
     deletePersonHandler = (index, event) => {
@@ -113,4 +124,4 @@ class App extends Component {
     };
 }
 
-export default App;
+export default Radium(App);

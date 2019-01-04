@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Person from "./components/Person/Person";
-import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary"
+import Person from "../components/Persons/Person/Person";
+import ErrorBoundary from "../components/ErrorBoundary/ErrorBoundary"
 
 import styles from './App.module.scss';
 
@@ -58,8 +58,10 @@ class App extends Component {
         if (this.state.showPersons) {
             return this.state.persons.map((el, index) => {
                 return (
-                    <ErrorBoundary key={el.id}>
+                    <ErrorBoundary
+                        key={'boundary' + el.id}>
                         <Person
+                            key={'person' + el.id}
                             name={el.name}
                             deletePersonHandler={this.deletePersonHandler.bind(this, index)}
                             nameChangeHandler={this.nameChangeHandler.bind(this, el.id)}
